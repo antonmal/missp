@@ -1,0 +1,6 @@
+<table class='table table-hover table-striped'>
+  <th><%= @title %></th>
+  <% Choices.each do |key, food| %>
+  <td><%= food %> - <%= @votes[key] %></td>
+  <% end %>
+</table>
