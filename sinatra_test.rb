@@ -16,10 +16,10 @@ end
 get '/results' do
   @title = "Your results"
   @votes = {
-    'HAM' => 0,
-    'PIZ' => 0,
-    'CUR' => 0,
-    'NOO' => 0,
+    'HAM' => 1,
+    'PIZ' => 4,
+    'CUR' => 8,
+    'NOO' => 5,
   }
   erb :results
 end
