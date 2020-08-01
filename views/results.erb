@@ -1,6 +1,12 @@
 <table class='table table-hover table-striped'>
-  <th><%= @title %></th>
+  <tr>
+    <th>Food</th>
+    <th>Number of points</th>
+  </tr>
   <% Choices.each do |key, food| %>
-  <td><%= food %> - <%= @votes[key] %></td>
+  <tr>
+    <td><%= food %></td>
+    <td><%= @votes[key] %></td>
+  </tr>
   <% end %>
 </table>
