@@ -1,10 +1,5 @@
-votes = {
-  'HAM' => 1,
-  'PIZ' => 4,
-  'CUR' => 8,
-  'NOO' => 5,
-}
 def sort_desc(hsh)
+
   new_hsh = {}
   key_array = hsh.keys
   value_array = hsh.values
@@ -35,5 +30,3 @@ def sort_desc(hsh)
 
   return new_hsh
 end
-
-sort_desc(votes)
