@@ -1,13 +1,9 @@
-<form action='cast' method='post'>
-  <ul class='unstyled'>
-    <% Choices.each do |id, text| %>
-      <li>
-        <label class='radio'>
-          <input type='radio' name='vote' value='<%= id %>' id='vote_<%= id %>' />
-          <%= text %>
-        </label>
-      </li>
-    <% end %>
-  </ul>
-  <button type='submit' class='btn btn-primary'>Cast this vote!</button>
-</form>
+<div class="unstyled">
+  <h3>Welcome to the Misspelling Game</h3>
+  <p>by Mikhail Malkov</p>
+  <p></p>
+  <p>Do you want to start the game?</p>
+  <form action="question" method="post">
+    <button type="submit" name="button" class="btn btn-primary">Start!</button>
+  </form>
+</div>

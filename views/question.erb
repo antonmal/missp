@@ -1,0 +1,27 @@
+<form action='cast' method='post'>
+  <div>
+
+    <% @answer_variants.each do |hash| %>
+      <% if hash[:show_word_first] %>
+        <div>
+          <input type="radio" name="word" value='<%= hash[:word] %>'>
+          <label for="word"><%= hash[:word] %>
+        </div>
+        <div>
+          <input type="radio" name="word" value=''<%= hash[:misspelling] %>'>
+          <label for="misspelling"><%= hash[:misspelling] %>
+        </div>
+      <% else %>
+        <div>
+          <input type="radio" name="word" value='<%= hash[:misspelling] %>'>
+          <label for="misspelling"><%= hash[:misspelling] %>
+        </div>
+        <div>
+          <input type="radio" name="word" value='<%= hash[:word] %>'>
+          <label for="word"><%= hash[:word] %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <input type="button" value="Submit">
+</form>

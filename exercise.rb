@@ -1,6 +1,6 @@
 class Exercise
-  attr_accessor :exercise, :words_array
-  @@words_num = 5
+  attr_accessor :exercise_array, :words_array
+  @@words_num = 1
 
   def initialize
     get_words
@@ -9,35 +9,35 @@ class Exercise
 
   def get_words
     agr = [ { "$sample" => {:size => @@words_num} } ]
-    @words_array = $client[:words_and_missp].aggregate(agr).to_a
+    @words_array = $coll.aggregate(agr).to_a
   end
 
   def choose_firsts
-    @exercise = []
+    @exercise_array = []
     @words_array.each do |w|
-      @exercise.push ({
+      @exercise_array.push ({
         word: w[:word],
         misspelling: w[:misspelling],
-        show_first: [:word, :misspelling].sample
+        show_word_first: [true, false].sample
       })
     end
   end
 
-  def show_exercise
-    exercise.each do |e|
-      if e[:show_first] == :word
-        puts "#{e[:word]} => #{e[:misspelling]}"
-        puts " 1 or 2 ?"
-        answer = gets.strip.to_i
-        puts answer == 1 ? "Correct" : "Wrong"
-        puts "-----"
-      else
-        puts "#{e[:misspelling]} => #{e[:word]}"
-        puts " 1 or 2 ?"
-        answer = gets.strip.to_i
-        puts answer == 2 ? "Correct" : "Wrong"
-        puts "-----"
-      end
-    end
-  end
+  # def show_exercise
+  #   exercise.each do |e|
+  #     if e[:show_first] == :word
+  #       puts "#{e[:word]} => #{e[:misspelling]}"
+  #       puts " 1 or 2 ?"
+  #       answer = gets.strip.to_i
+  #       puts answer == 1 ? "Correct" : "Wrong"
+  #       puts "-----"
+  #     else
+  #       puts "#{e[:misspelling]} => #{e[:word]}"
+  #       puts " 1 or 2 ?"
+  #       answer = gets.strip.to_i
+  #       puts answer == 2 ? "Correct" : "Wrong"
+  #       puts "-----"
+  #     end
+  #   end
+  # end
 end # Exercise

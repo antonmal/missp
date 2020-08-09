@@ -8,37 +8,28 @@ require_relative 'game.rb'
 require_relative 'misspellings.rb'
 
 
+#Connect to DB
 Mongo::Logger.logger.level = ::Logger::FATAL
-
 $client = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "missp_db")
+$coll = $client[:words_and_missp]
 
-# APP
 
 get '/' do
-  @title = "Dinner"
+  @title = "Misspelling Game"
+
   erb :index
 end
 
-get '/results' do
-  @title = "Your results"
-  @votes = {
-    'HAM' => 1,
-    'PIZ' => 4,
-    'CUR' => 8,
-    'NOO' => 5,
-  }
-  erb :results
+post '/question' do
+  @title = "Question number #{}"
+  @exercise = Exercise.new()
+  @answer_variants = @exercise.exercise_array
+  erb :question
 end
 
 post '/cast' do
-  @title = "Option chosen:"
-  @option = params['vote']
-  erb :cast
+  @variant_chosen = params['word']
 end
 
-
-ex1 = Exercise.new
-
-ex1.show_exercise
-
+#Close DB connection
 $client.close
