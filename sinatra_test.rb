@@ -7,9 +7,6 @@ require_relative 'sort.rb'
 Mongo::Logger.logger.level = ::Logger::FATAL
 
 client = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "votes_db")
-
-$db = client.database
-
 $coll = client[:food_votes]
 
 
