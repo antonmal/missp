@@ -5,7 +5,8 @@ require 'mongoid'
 
 Mongo::Logger.logger.level = ::Logger::FATAL
 
-$client = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "missp_db")
+client = Mongo::Client.new([ '127.0.0.1:27017' ], database: "missp_db")
+$coll = client[:words_and_missp]
 
 
 class Game
@@ -29,7 +30,7 @@ class Exercise
 
   def get_words
     agr = [ { "$sample" => {:size => @@words_num} } ]
-    @words_array = $client[:words_and_missp].aggregate(agr).to_a
+    @words_array = $coll.aggregate(agr).to_a
   end
 
   def choose_firsts
@@ -63,10 +64,10 @@ class Exercise
 end # Exercise
 
 
-# APP 
+# APP
 
 ex1 = Exercise.new
 
 ex1.show_exercise
 
-$client.close
+client.close
