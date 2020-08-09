@@ -1,12 +1,15 @@
+<div class="normal">
+  <%= @votes_class %>
+</div>
 <table class='table table-hover table-striped'>
   <tr>
     <th>Food</th>
     <th>Number of points</th>
   </tr>
-  <% Choices.each do |key, food| %>
+  <% @sorted_votes.each do |item| %>
   <tr>
-    <td><%= food %></td>
-    <td><%= @votes[key] %></td>
+    <td><%= item["abbr"] %></td>
+    <td><%= item["votes"] %></td>
   </tr>
   <% end %>
 </table>
