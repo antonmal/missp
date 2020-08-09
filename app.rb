@@ -2,68 +2,40 @@
 
 require 'mongo'
 require 'mongoid'
+require 'sinatra'
+require_relative 'exercise.rb'
+require_relative 'game.rb'
+require_relative 'misspellings.rb'
+
 
 Mongo::Logger.logger.level = ::Logger::FATAL
 
 $client = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "missp_db")
 
+# APP
 
-class Game
+get '/' do
+  @title = "Dinner"
+  erb :index
+end
 
-end # Game
+get '/results' do
+  @title = "Your results"
+  @votes = {
+    'HAM' => 1,
+    'PIZ' => 4,
+    'CUR' => 8,
+    'NOO' => 5,
+  }
+  erb :results
+end
 
+post '/cast' do
+  @title = "Option chosen:"
+  @option = params['vote']
+  erb :cast
+end
 
-class Misspellings
-
-end # Misspellings
-
-
-class Exercise
-  attr_accessor :exercise, :words_array
-  @@words_num = 5
-
-  def initialize
-    get_words
-    choose_firsts
-  end
-
-  def get_words
-    agr = [ { "$sample" => {:size => @@words_num} } ]
-    @words_array = $client[:words_and_missp].aggregate(agr).to_a
-  end
-
-  def choose_firsts
-    @exercise = []
-    @words_array.each do |w|
-      @exercise.push ({
-        word: w[:word],
-        misspelling: w[:misspelling],
-        show_first: [:word, :misspelling].sample
-      })
-    end
-  end
-
-  def show_exercise
-    exercise.each do |e|
-      if e[:show_first] == :word
-        puts "#{e[:word]} => #{e[:misspelling]}"
-        puts " 1 or 2 ?"
-        answer = gets.strip.to_i
-        puts answer == 1 ? "Correct" : "Wrong"
-        puts "-----"
-      else
-        puts "#{e[:misspelling]} => #{e[:word]}"
-        puts " 1 or 2 ?"
-        answer = gets.strip.to_i
-        puts answer == 2 ? "Correct" : "Wrong"
-        puts "-----"
-      end
-    end
-  end
-end # Exercise
-
-
-# APP 
 
 ex1 = Exercise.new
 

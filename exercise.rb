@@ -1,12 +1,3 @@
-#!/usr/bin/ruby
-
-require 'mongo'
-require 'mongoid'
-
-Mongo::Logger.logger.level = ::Logger::FATAL
-
-$client = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "missp_db")
-
 class Exercise
   attr_accessor :exercise, :words_array
   @@words_num = 5
@@ -50,9 +41,3 @@ class Exercise
     end
   end
 end # Exercise
-
-ex1 = Exercise.new
-
-ex1.show_exercise
-
-$client.close
