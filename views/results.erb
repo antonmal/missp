@@ -1,5 +1,4 @@
 <div class="normal">
-  <%= @votes_class %>
 </div>
 <table class='table table-hover table-striped'>
   <tr>
@@ -8,8 +7,11 @@
   </tr>
   <% @sorted_votes.each do |item| %>
   <tr>
-    <td><%= item["abbr"] %></td>
-    <td><%= item["votes"] %></td>
+    <td><%= item[:name] %></td>
+    <td><%= item[:votes] %></td>
   </tr>
   <% end %>
 </table>
+<p>
+  <a href="/">Cast another vote</a>
+</p>
